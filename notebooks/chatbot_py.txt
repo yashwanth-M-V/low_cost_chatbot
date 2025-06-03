@@ -1,0 +1,40 @@
+# Updated imports
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.concurrency import run_in_threadpool
+from typing import Optional
+import logging
+import re
+
+# Add response formatting function
+def format_response(text: str) -> str:
+    """Clean up model output"""
+    text = re.sub(r"\n+", "\n", text)  # Remove extra newlines
+    text = re.sub(r" {2,}", " ", text)  # Fix multiple spaces
+    return text.strip()
+
+# Add to your chat endpoint
+@router.post("/chat", response_model=ChatOutput)
+async def chat(user_input: ChatInput, model: Llama = Depends(get_model)):
+    try:
+        # Enhanced validation
+        if len(user_input.message) > 500:
+            raise HTTPException(400, "Question too long (max 500 characters)")
+            
+        # Process response with formatting
+        output = await run_in_threadpool(
+            model,
+            user_input.message,
+            max_tokens=200,  # Increased for detailed answers
+            temperature=0.5,  # More focused responses
+            top_p=0.9,
+            stop=["\n###", "[INST]"]  # Better stopping criteria
+        )
+        
+        raw_response = output['choices'][0]['text'].strip()
+        clean_response = format_response(raw_response)
+        
+        return {"response": clean_response}
+    
+    except Exception as e:
+        logging.error(f"Chat error: {str(e)}")
+        raise HTTPException(500, "Failed to generate response")

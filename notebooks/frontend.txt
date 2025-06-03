@@ -1,0 +1,39 @@
+import React, { useState } from 'react';
+import Logo from './components/logo';
+// import Logo from './components/logo'; // Adjust the path as necessary
+import Title from './components/title';
+import HamburgerMenu from './components/hamburger';
+import InputBar from './components/inputbar';
+import ChatLog from './components/chatlog';
+import './App.css';
+
+function App() {
+  const [messages, setMessages] = useState([]);
+
+  const handleSendMessage = (newMessage) => {
+    // In a real application, you would send this message to your backend
+    // and get a response. For this simple frontend, we'll simulate a response.
+    setMessages([...messages, { text: newMessage, sender: 'user' }]);
+    setTimeout(() => {
+      setMessages([
+        ...messages,
+        { text: newMessage, sender: 'user' },
+        { text: `Echo: ${newMessage}`, sender: 'bot' },
+      ]);
+    }, 1000); // Simulate a 1-second bot response
+  };
+
+  return (
+    <div className="chatbot-container">
+      <div className="header">
+        <Logo />
+        <HamburgerMenu />
+      </div>
+      <Title text="My Awesome Chatbot" />
+      <ChatLog messages={messages} />
+      <InputBar onSendMessage={handleSendMessage} />
+    </div>
+  );
+}
+
+export default App;

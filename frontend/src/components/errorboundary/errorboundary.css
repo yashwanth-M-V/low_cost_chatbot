@@ -1,0 +1,19 @@
+/* src/components/ErrorBoundary/ErrorBoundary.css */
+.error-boundary-container {
+  padding: 20px;
+  border: 1px solid #d9534f;
+  background-color: #f2dede;
+  color: #a94442;
+  border-radius: 5px;
+  text-align: center;
+  margin: 20px;
+}
+
+.error-boundary-container h2 {
+  color: #d9534f;
+  margin-top: 0;
+}
+
+.error-boundary-container p {
+  margin-bottom: 15px;
+}

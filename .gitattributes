@@ -1,0 +1,2 @@
+/Users/poojithanappari/Desktop/yash/low_cost_chatbot/backend/llm/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf filter=lfs diff=lfs merge=lfs -text
+mistral-7b-instruct-v0.2.Q4_K_M.gguf filter=lfs diff=lfs merge=lfs -text

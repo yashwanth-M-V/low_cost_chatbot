@@ -1,0 +1,116 @@
+/* src/components/ChatLog/ChatLog.css */
+.chat-log {
+  flex-grow: 1;
+  padding: 15px 15px; /* Reduced horizontal padding for more message space */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Take full available width */
+  max-width: 400px; /* Set your desired width here */
+  margin: 0 auto; /* Center the chat log */
+}
+
+
+
+.message-container {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 15px;
+  /* Original max-width: 80% was relative to .chat-log.
+     If .App-main has padding, messages might still look wide.
+     Let's keep max-width relative to its parent, which is .chat-log. */
+  max-width: 90%; /* Still keeps message bubbles from being too wide */
+}
+
+/* Styles for User Messages (should align right, icon on right) */
+.message-container.user {
+  align-self: flex-end;
+  /* Add margin to move the entire user message block away from the right edge */
+  margin-left: auto; /* Pushes the message to the right as far as possible */
+}
+
+/* Styles for Bot Messages (should align left, icon on left) */
+.message-container.bot {
+  align-self: flex-start;
+  /* Add margin to move the entire bot message block away from the left edge */
+  margin-right: auto; /* Pushes the message to the left as far as possible */
+}
+
+.message-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.message-container.bot .message-icon {
+  margin-right: 10px;
+  margin-left: 0;
+  order: 1;
+}
+
+.message-container.user .message-icon {
+  margin-left: 10px;
+  margin-right: 0;
+  order: 2;
+}
+
+.message-bubble {
+  padding: 10px 15px;
+  border-radius: 20px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  /* Max-width on bubble can restrict its growth within the 80% of container */
+  max-width: calc(100% - 40px); /* Keep this as it's relative to .message-container */
+}
+
+.message-container.bot .message-bubble {
+  order: 2;
+  background-color: #e0e0e0;
+  color: #333;
+  border-bottom-left-radius: 5px;
+}
+
+.message-container.user .message-bubble {
+  order: 1;
+  background-color: #dcf8c6;
+  color: #333;
+  border-bottom-right-radius: 5px;
+}
+
+.message-container.error .message-bubble {
+  background-color: #ffe0e0;
+  border: 1px solid #ffb3b3;
+  color: #cc0000;
+  order: 1;
+}
+
+.chat-message {
+  max-width: 70%;
+  margin: 8px 0;
+  padding: 10px 16px;
+  border-radius: 16px;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+/* User messages: align right */
+.chat-message.user {
+  align-self: flex-end;
+  background: #daf1ff;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+/* Bot messages: align left */
+.chat-message.bot {
+  align-self: flex-start;
+  background: #f1f1f1;
+  margin-right: auto;
+  margin-left: 12px;
+}

@@ -1,0 +1,52 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routers import chatbot
+import os
+import time
+import logging
+
+app = FastAPI(
+    title="Mistral 7B API",
+    description="Production API for Mistral-7B LLM",
+    version="1.0.0"
+)
+
+# CORS Configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=os.getenv("CORS_ORIGINS", "*").split(","),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
+app.include_router(chatbot.router, prefix="/api/v1/chat", tags=["AI Chat"])
+
+# Health Check
+@app.get("/health", include_in_schema=False)
+async def health_check():
+    return {
+        "status": "ok",
+        "timestamp": time.time(),
+        "model_loaded": chatbot._model is not None
+    }
+
+# Startup Event
+@app.on_event("startup")
+async def startup_event():
+    logging.info("Initializing AI model...")
+    await chatbot.get_model()  # Warm up the model
+
+@app.get("/")
+async def root():
+    return {"message": "FastAPI backend is online!"}    
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        app, 
+        host=os.getenv("HOST", "0.0.0.0"), 
+        port=int(os.getenv("PORT", "8000")),
+        log_level=os.getenv("LOG_LEVEL", "info")
+    )

@@ -1,0 +1,29 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Node.js/React
+node_modules/
+build/
+.cache/
+
+# Docker
+.dockerignore # If you create one
+
+# Environment variables (sensitive)
+.env
+*.env.*
+!.env.example # Keep this if you have an example
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+
+# GGUF files
+backend/llm/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+
+backend/llm/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf

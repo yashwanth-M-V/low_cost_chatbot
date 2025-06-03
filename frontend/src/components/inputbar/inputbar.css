@@ -1,0 +1,77 @@
+/* src/components/InputBar/InputBar.css */
+.input-bar {
+  display: flex;
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+
+  /* --- NEW STYLES FOR WIDTH AND CENTERING --- */
+  width: 100%; /* Ensure it can grow up to its parent's width */
+  max-width: 60%; /* Limit its maximum width to 60% of its parent */
+  margin: 0 auto; /* Center the input bar horizontally */
+  /* You might need to adjust padding here if the 20px on left/right makes it too wide with the max-width */
+  padding: 15px 0px; /* Example: Remove horizontal padding if max-width is applied here */
+  /* If you want internal padding, apply it to input-field instead */
+
+  /* --- SUGGESTED CODE CHANGE FOR STYLES --- */
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent */
+  /* Or use: background: transparent; */
+  backdrop-filter: blur(4px); /* Optional: adds a blur effect for a glassy look */
+  border: none; /* Optional: remove border if needed */
+  box-shadow: none; /* Optional: remove shadow if needed */
+}
+
+.input-field {
+  flex-grow: 1; /* Take up available space */
+  padding: 12px 15px; /* Keep internal padding for the text field */
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1em;
+  margin-right: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.send-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #357bd8;
+}
+
+.send-button:disabled {
+  background-color: #a0c3f0;
+  cursor: not-allowed;
+}
+
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-container {
+  text-align: center;
+}
